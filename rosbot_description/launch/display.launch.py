@@ -40,10 +40,6 @@ def generate_launch_description():
     )
 
 
-
-
-
-
     return LaunchDescription([
         robot_description_arg, 
         robot_state_publisher, 
