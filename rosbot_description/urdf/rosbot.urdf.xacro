@@ -3,6 +3,7 @@
 <robot name="rosbot" xmlns:xacro="http://ros.org/wiki/xacro">
 
     <xacro:property name="wheel_radius" value="0.0425"/>
+    <xacro:property name="wheel_thickness" value="0.0455"/>
     <xacro:property name="wheel_separation_x" value="0.106"/>
     <xacro:property name="wheel_separation_y" value="0.192"/>
 
@@ -65,6 +66,13 @@
             </geometry>
             <origin xyz="0 0 0" rpy="0 0 0"/>
         </visual>
+
+        <collision>
+            <geometry>
+                <cylinder radius="${wheel_radius}" length="${wheel_thickness}"/>
+            </geometry>
+            <origin xyz="0 0 0" rpy="${pi/2} 0 0"/>
+        </collision>
     </link>
 
     <joint name="wheel_left_back_joint" type="continuous">
@@ -81,6 +89,13 @@
             </geometry>
             <origin xyz="0 0 0" rpy="0 0 0"/>
         </visual>
+
+        <collision>
+            <geometry>
+                <cylinder radius="${wheel_radius}" length="${wheel_thickness}"/>
+            </geometry>
+            <origin xyz="0 0 0" rpy="${pi/2} 0 0"/>
+        </collision>
     </link>
 
     <joint name="wheel_left_forward_joint" type="continuous">
@@ -97,6 +112,13 @@
             </geometry>
             <origin xyz="0 0 0" rpy="0 0 0"/>
         </visual>
+
+        <collision>
+            <geometry>
+                <cylinder radius="${wheel_radius}" length="${wheel_thickness}"/>
+            </geometry>
+            <origin xyz="0 0 0" rpy="${pi/2} 0 0"/>
+        </collision>
     </link>
 
     <joint name="wheel_right_back_joint" type="continuous">
@@ -113,6 +135,13 @@
             </geometry>
             <origin xyz="0 0 0" rpy="0 0 0"/>
         </visual>
+
+        <collision>
+            <geometry>
+                <cylinder radius="${wheel_radius}" length="${wheel_thickness}"/>
+            </geometry>
+            <origin xyz="0 0 0" rpy="${pi/2} 0 0"/>
+        </collision>
     </link>
 
     <joint name="wheel_right_forward_joint" type="continuous">
