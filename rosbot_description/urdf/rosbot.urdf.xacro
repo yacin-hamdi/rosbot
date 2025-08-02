@@ -3,7 +3,7 @@
 <robot name="rosbot" xmlns:xacro="http://ros.org/wiki/xacro">
 
     <xacro:property name="wheel_radius" value="0.0425"/>
-    <xacro:property name="wheel_thickness" value="0.0455"/>
+    <xacro:property name="wheel_thickness" value="0.036"/>
     <xacro:property name="wheel_separation_x" value="0.106"/>
     <xacro:property name="wheel_separation_y" value="0.192"/>
 
@@ -31,7 +31,7 @@
                                     iyy="0.00651" iyz="0.0"
                                                   izz="0.008828" />
             <origin xyz="0.0 0.0 0.038" rpy="0.0 0.0 0.0" />
-          </inertial>
+        </inertial>
 
     </link>
 
@@ -73,6 +73,13 @@
             </geometry>
             <origin xyz="0 0 0" rpy="${pi/2} 0 0"/>
         </collision>
+
+        <inertial>
+            <mass value="0.074" />
+            <inertia ixx="0.000041" ixy="0.0"    ixz="0.0"
+                                  iyy="0.000067" iyz="0.0"
+                                               izz="0.000041" />
+        </inertial>
     </link>
 
     <joint name="wheel_left_back_joint" type="continuous">
@@ -96,6 +103,13 @@
             </geometry>
             <origin xyz="0 0 0" rpy="${pi/2} 0 0"/>
         </collision>
+
+        <inertial>
+            <mass value="0.074" />
+            <inertia ixx="0.000041" ixy="0.0"    ixz="0.0"
+                                  iyy="0.000067" iyz="0.0"
+                                               izz="0.000041" />
+        </inertial>
     </link>
 
     <joint name="wheel_left_forward_joint" type="continuous">
@@ -119,6 +133,13 @@
             </geometry>
             <origin xyz="0 0 0" rpy="${pi/2} 0 0"/>
         </collision>
+
+        <inertial>
+            <mass value="0.074" />
+            <inertia ixx="0.000041" ixy="0.0"    ixz="0.0"
+                                  iyy="0.000067" iyz="0.0"
+                                               izz="0.000041" />
+        </inertial>
     </link>
 
     <joint name="wheel_right_back_joint" type="continuous">
@@ -142,6 +163,13 @@
             </geometry>
             <origin xyz="0 0 0" rpy="${pi/2} 0 0"/>
         </collision>
+
+        <inertial>
+            <mass value="0.074" />
+            <inertia ixx="0.000041" ixy="0.0"    ixz="0.0"
+                                  iyy="0.000067" iyz="0.0"
+                                               izz="0.000041" />
+        </inertial>
     </link>
 
     <joint name="wheel_right_forward_joint" type="continuous">
