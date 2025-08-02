@@ -9,10 +9,10 @@ import os
 
 
 def generate_launch_description():
-    robot_description_dir = get_package_share_directory("rosbot_description")
+    rosbot_description_dir = get_package_share_directory("rosbot_description")
     robot_description_arg = DeclareLaunchArgument(
         name="robot_description", 
-        default_value=os.path.join(robot_description_dir, "urdf", "rosbot.urdf.xacro")
+        default_value=os.path.join(rosbot_description_dir, "urdf", "rosbot.urdf.xacro")
     )
 
     robot_description = ParameterValue(Command(["xacro ", LaunchConfiguration("robot_description")]), value_type=str)
@@ -35,7 +35,8 @@ def generate_launch_description():
         package="rviz2", 
         executable="rviz2", 
         name="rviz2", 
-        output="screen"
+        output="screen", 
+        arguments=["-d", os.path.join(rosbot_description_dir, "rviz", "display.rviz")]
     )
 
 
