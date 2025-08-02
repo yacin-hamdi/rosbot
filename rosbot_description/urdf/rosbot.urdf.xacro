@@ -6,6 +6,7 @@
     <xacro:property name="wheel_thickness" value="0.036"/>
     <xacro:property name="wheel_separation_x" value="0.106"/>
     <xacro:property name="wheel_separation_y" value="0.192"/>
+    <xacro:include filename="$(find rosbot_description)/urdf/rosbot_gazebo.xacro"/>
 
     <link name="base_footprint"/>
     <link name="base_link">
