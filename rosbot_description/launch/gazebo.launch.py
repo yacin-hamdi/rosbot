@@ -41,7 +41,7 @@ def generate_launch_description():
     gazebo = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             PathJoinSubstitution([
-                FindPackageShare("ros_gz_sim"), 
+              FindPackageShare("ros_gz_sim"), 
                 "launch", 
                 "gz_sim.launch.py"
             ])
