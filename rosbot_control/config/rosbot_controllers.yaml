@@ -1,17 +1,19 @@
 controller_manager:
   ros__parameters:
     update_rate: 100
+    use_sim_time: true
     
-      rosbot_controller:
-        type: diff_drive_controller/DiffDriveController
+    rosbot_controller:
+      type: diff_drive_controller/DiffDriveController
 
-      joint_state_broadcaster:
-        type: joint_state_broadcaster/JointStateBroadcaster
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+
 
 
 rosbot_controller:
-  ros_parameters:
-    type: diff_drive_controller/DiffDriveController
+  ros__parameters:
     use_stamped_vel: true
     left_wheel_names: [wheel_left_back_joint, wheel_left_forward_joint]
     right_wheel_names: [wheel_right_back_joint, wheel_right_forward_joint]
@@ -44,7 +46,6 @@ rosbot_controller:
         max_acceleration: 0.7
         min_acceleration: -0.7
         has_jerk_limits: false
-        max_jerk: 5.0
 
     angular:
       z:
@@ -55,5 +56,5 @@ rosbot_controller:
         max_acceleration: 5.0
         min_acceleration: -5.0
         has_jerk_limits: false
-        max_jerk: 2.5
-    
+
+

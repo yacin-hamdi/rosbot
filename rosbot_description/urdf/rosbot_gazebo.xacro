@@ -10,7 +10,7 @@
         <maxVel>0.1</maxVel>
         <fdir1>1 0 0</fdir1>
     </gazebo>
-
+4
     <gazebo reference="wheel_left_forward_link">
         <mu1>1000.0</mu1>
         <mu2>1000.0</mu2>
@@ -40,4 +40,12 @@
         <maxVel>0.1</maxVel>
         <fdir1>1 0 0</fdir1>
     </gazebo>
+
+    <gazebo>
+        <plugin filename="ign_ros2_control-system" name="ign_ros2_control::IgnitionROS2ControlPlugin">
+            <parameters>$(find rosbot_control)/config/rosbot_controllers.yaml</parameters>
+        </plugin>
+    </gazebo>
+
+    
 </robot>
