@@ -33,8 +33,8 @@ def generate_launch_description():
         package="robot_state_publisher", 
         executable="robot_state_publisher",
         parameters=[
-            {"robot_description":robot_description}, 
-            {"use_sim_time": True}
+            {"robot_description":robot_description, 
+            "use_sim_time": True}
         ]
     )
 
@@ -57,11 +57,22 @@ def generate_launch_description():
                    "-name", "rosbot"]
     )
 
+    gz_ros2_bridge = Node(
+        package="ros_gz_bridge", 
+        executable="parameter_bridge", 
+        arguments=[
+            "/clock@rosgraph_msgs/msg/Clock[gz.msgs.Clock"
+        ]
+    )
+
     return LaunchDescription([
         model_arg, 
         gazebo_resource_path, 
         robot_state_publisher, 
         gazebo, 
-        gz_spawn_entity
+        gz_spawn_entity,
+        gz_ros2_bridge
         
     ])
+
+
