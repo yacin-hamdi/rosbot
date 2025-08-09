@@ -4,6 +4,7 @@ from launch.actions import DeclareLaunchArgument
 from launch.substitutions import LaunchConfiguration, Command
 from ament_index_python.packages import get_package_share_directory
 from launch_ros.parameter_descriptions import ParameterValue
+from launch.conditions import UnlessCondition, IfCondition
 
 import os
 
@@ -14,6 +15,12 @@ def generate_launch_description():
         name="robot_description", 
         default_value=os.path.join(rosbot_description_dir, "urdf", "rosbot.urdf.xacro")
     )
+    use_state_publisher_arg = DeclareLaunchArgument(
+        name="use_state_publisher",
+        default_value="True"
+    )
+
+    use_state_publisher = LaunchConfiguration("use_state_publisher")
 
     robot_description = ParameterValue(Command(["xacro ", LaunchConfiguration("robot_description")]), value_type=str)
 
@@ -23,12 +30,14 @@ def generate_launch_description():
         output="screen",
         parameters=[
             {"robot_description": robot_description}
-            ]
+            ],
+        condition=IfCondition(use_state_publisher)
     )
 
     joint_state_publisher_gui = Node(
         package="joint_state_publisher_gui", 
-        executable="joint_state_publisher_gui"
+        executable="joint_state_publisher_gui",
+        condition=IfCondition(use_state_publisher)
     )
 
     rviz2 = Node(
@@ -41,6 +50,7 @@ def generate_launch_description():
 
 
     return LaunchDescription([
+        use_state_publisher_arg,
         robot_description_arg, 
         robot_state_publisher, 
         joint_state_publisher_gui, 
