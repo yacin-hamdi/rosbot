@@ -1,7 +1,7 @@
 from launch import LaunchDescription
 from launch_ros.actions import Node
 from launch.actions import DeclareLaunchArgument, SetEnvironmentVariable, IncludeLaunchDescription
-from launch.substitutions import PathJoinSubstitution, LaunchConfiguration, Command
+from launch.substitutions import PathJoinSubstitution, LaunchConfiguration, Command, PythonExpression
 from launch_ros.parameter_descriptions import ParameterValue
 from launch_ros.substitutions import FindPackageShare
 from ament_index_python.packages import get_package_share_directory
@@ -21,11 +21,24 @@ def generate_launch_description():
             [rosbot_description, "urdf", "rosbot.urdf.xacro"]
         )
     )
+    world_name_arg = DeclareLaunchArgument(
+        name="world_name", 
+        default_value="empty.sdf"
+    )
+
     model = LaunchConfiguration("model")
+    world_name = LaunchConfiguration("world_name")
+    world_path = PathJoinSubstitution([
+        rosbot_description, 
+        "worlds", 
+        PythonExpression(["'", LaunchConfiguration("world_name"), "'", " + '.world'"])
+    ])
+    resource_path = str(Path(get_package_share_directory("rosbot_description")).parent.resolve())
+    resource_path += os.pathsep + os.path.join(get_package_share_directory("rosbot_description"), "models")
 
     gazebo_resource_path = SetEnvironmentVariable(
         name="GZ_SIM_RESOURCE_PATH", 
-        value= PathJoinSubstitution([rosbot_description, ".."])#str(Path(get_package_share_directory("rosbot_description")).parent.resolve())
+        value= resource_path
     )
 
     robot_description = ParameterValue(Command(["xacro ", model]), value_type=str)
@@ -46,7 +59,7 @@ def generate_launch_description():
                 "gz_sim.launch.py"
             ])
         ),
-        launch_arguments=[("gz_args", " -v 4 -r empty.sdf")]
+        launch_arguments=[("gz_args", PythonExpression(["' -v 4 -r ", world_path, "'"]))]
     )
 
     gz_spawn_entity = Node(
@@ -72,6 +85,7 @@ def generate_launch_description():
 
     return LaunchDescription([
         model_arg, 
+        world_name_arg,
         gazebo_resource_path, 
         robot_state_publisher, 
         gazebo, 
