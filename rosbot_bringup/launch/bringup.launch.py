@@ -50,7 +50,8 @@ def generate_launch_description():
     #     ]),
     #     launch_arguments={
     #         "use_state_publisher": "False"
-    #     }.items()
+    #     }.items(), 
+    #     condition=UnlessCondition(use_slam)
     # )
 
     rviz2_slam = Node(
@@ -66,6 +67,21 @@ def generate_launch_description():
                 "slam.rviz"])
             ],
         condition=IfCondition(use_slam)
+    )
+
+    rviz2_amcl = Node(
+        package="rviz2", 
+        executable="rviz2", 
+        name="rviz2", 
+        output="screen", 
+        arguments=[
+            "-d", 
+            PathJoinSubstitution([
+                FindPackageShare("rosbot_localization"), 
+                "rviz", 
+                "amcl.rviz"])
+            ],
+        condition=UnlessCondition(use_slam)
     )
 
     slam = IncludeLaunchDescription(
@@ -90,6 +106,7 @@ def generate_launch_description():
         gazebo,
         controller,
         rviz2_slam,
+        rviz2_amcl,
         # display,
         joystick, 
         slam,
