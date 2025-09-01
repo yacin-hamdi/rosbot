@@ -14,7 +14,7 @@ controller_manager:
 
 rosbot_controller:
   ros__parameters:
-    use_stamped_vel: true
+    use_stamped_vel: True
     left_wheel_names: [wheel_left_back_joint, wheel_left_forward_joint]
     right_wheel_names: [wheel_right_back_joint, wheel_right_forward_joint]
 
@@ -54,11 +54,11 @@ rosbot_controller:
     angular:
       z:
         has_velocity_limits: true
-        max_velocity: 8.5
-        min_velocity: -8.5
+        max_velocity: 1.5
+        min_velocity: -1.5
         has_acceleration_limits: true
-        max_acceleration: 5.0
-        min_acceleration: -5.0
+        max_acceleration: 1.5
+        min_acceleration: -1.5
         has_jerk_limits: false
 
 
