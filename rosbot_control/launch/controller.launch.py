@@ -24,7 +24,14 @@ def generate_launch_description():
         ]
     )
 
+    publish_twist_vel = Node(
+        package="rosbot_control", 
+        executable="publish_twist_vel.py"
+
+    )
+
     return LaunchDescription([
         joint_state_broadcaster, 
-        wheel_controller_spawner
+        wheel_controller_spawner, 
+        publish_twist_vel
     ])
