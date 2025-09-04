@@ -14,7 +14,7 @@ def generate_launch_description():
     
     use_sim_time = LaunchConfiguration("use_sim_time")
 
-    lifecycle_nodes = ["planner_server", "controller_server", "bt_navigator"]
+    lifecycle_nodes = ["planner_server", "controller_server", "behavior_server", "bt_navigator"]
 
     nav2_lifecycle_manager = Node(
         package="nav2_lifecycle_manager", 
@@ -73,10 +73,25 @@ def generate_launch_description():
         ]
     )
 
+    behavior_server= Node(
+        package="nav2_behaviors", 
+        executable="behavior_server",
+        name="behavior_server",
+        output="screen", 
+        parameters=[
+            PathJoinSubstitution([
+                FindPackageShare("rosbot_navigation"), 
+                "config", 
+                "behavior_server.yaml"
+            ])
+        ]
+    )
+
     return LaunchDescription([
         use_sim_time_arg, 
         planner_server, 
         controller_server,
+        behavior_server,
         bt_navigator,
         nav2_lifecycle_manager
     ])
