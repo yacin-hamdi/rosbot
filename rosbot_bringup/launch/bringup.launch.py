@@ -77,9 +77,9 @@ def generate_launch_description():
         arguments=[
             "-d", 
             PathJoinSubstitution([
-                FindPackageShare("rosbot_localization"), 
+                FindPackageShare("rosbot_bringup"), 
                 "rviz", 
-                "amcl.rviz"])
+                "nav.rviz"])
             ],
         condition=UnlessCondition(use_slam)
     )
@@ -101,6 +101,15 @@ def generate_launch_description():
         ]), 
         condition=UnlessCondition(use_slam)
     )
+
+    navigation = IncludeLaunchDescription(
+        PathJoinSubstitution([
+            FindPackageShare("rosbot_navigation"), 
+            "launch", 
+            "navigation.launch.py"
+        ]), 
+        condition=UnlessCondition(use_slam)
+    )
     return LaunchDescription([
         use_slam_arg,
         gazebo,
@@ -110,5 +119,6 @@ def generate_launch_description():
         # display,
         joystick, 
         slam,
-        amcl
+        amcl, 
+        navigation
     ])
